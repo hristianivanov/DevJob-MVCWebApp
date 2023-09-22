@@ -1,4 +1,4 @@
-namespace DevJobSystem.Web.Models
+namespace DevJobSystem.Web.Viewmodels.Home
 {
     public class ErrorViewModel
     {

@@ -1,55 +1,57 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using DevJobSystem.Web.Data;
 namespace DevJobSystem.Web
 {
-    using Data;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.AspNetCore.Identity;
+	using Microsoft.EntityFrameworkCore;
 
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	using DevJobSystem.Data;
+	using DevJobSystem.Data.Models;
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+			var connectionString =
+				builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            builder.Services.AddControllersWithViews();
+			builder.Services.AddDbContext<DevJobDbContext>(options =>
+				options.UseSqlServer(connectionString));
 
-            var app = builder.Build();
+			builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+				{
+					options.SignIn.RequireConfirmedAccount = true;
+				})
+				.AddEntityFrameworkStores<DevJobDbContext>();
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                
-                app.UseHsts();
-            }
+			builder.Services.AddControllersWithViews();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+			var app = builder.Build();
 
-            app.UseRouting();
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseMigrationsEndPoint();
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+				app.UseHsts();
+			}
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+			app.UseHttpsRedirection();
+			app.UseStaticFiles();
 
-            app.Run();
-        }
-    }
+			app.UseRouting();
+
+			app.UseAuthentication();
+			app.UseAuthorization();
+
+			app.MapDefaultControllerRoute();
+			app.MapRazorPages();
+
+			app.Run();
+		}
+	}
 }
