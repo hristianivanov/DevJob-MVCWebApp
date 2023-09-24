@@ -4,6 +4,8 @@
 
 	using Microsoft.AspNetCore.Identity;
 
+	using static DevJobSystem.Common.EntityValidationConstants.ApplicationUser;
+
 	public class ApplicationUser : IdentityUser<Guid>
 	{
 		public ApplicationUser()
