@@ -11,7 +11,6 @@
 		public ApplicationUser()
 		{
 			this.Id = Guid.NewGuid();
-
 		}
 
 		[Required, MaxLength(FirstNameMaxLength)]
