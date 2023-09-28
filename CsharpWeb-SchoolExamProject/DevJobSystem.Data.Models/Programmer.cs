@@ -1,23 +1,38 @@
 ﻿namespace DevJobSystem.Data.Models
 {
-	
+	using System.ComponentModel.DataAnnotations;
+
+	using static Common.EntityValidationConstants.Programmer;
+
 	public class Programmer
 	{
-        public Programmer()
-        {
-            this.Id = Guid.NewGuid();
-        }
+		public Programmer()
+		{
+			this.Id = Guid.NewGuid();
+			this.CompanyProgrammers = new HashSet<CompanyProgrammers>();
+		}
 
-        public Guid Id { get; set; }
+		[Key]
+		public Guid Id { get; set; }
 
-        public string Name { get; set; } = null!;
+		[Required]
+		[MaxLength(FirstNameMaxLength)]
+		public string FirstName { get; set; } = null!;
 
-        public int Experience { get; set; }
+		[Required]
+		[MaxLength(LastNameMaxLength)]
+		public string LastName { get; set; } = null!;
 
-        public string Skill { get; set; } = null!;
+		public int Experience { get; set; }
 
-        public decimal Salary { get; set; }
+		[Required]
+		[MaxLength(int.MaxValue)]
+		public string Skill { get; set; } = null!;
 
-        public DateTime HireDate { get; set; }
+		public decimal Salary { get; set; }
+
+		public DateTime HireDate { get; set; }
+
+		public virtual ICollection<CompanyProgrammers> CompanyProgrammers { get; set; }
 	}
 }

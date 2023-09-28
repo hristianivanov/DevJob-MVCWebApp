@@ -31,7 +31,11 @@
 		public RequestStatus RequestStatus { get; set; }
 
 		[ForeignKey(nameof(Job))]
-		public int JobId { get; set; }
-		public virtual Job Job { get; set; } = null!;
+        public int JobId { get; set; }
+        public Job Job { get; set; } = null!;
+
+		[ForeignKey(nameof(Company))]
+        public Guid CompanyId { get; set; }
+        public Company Company { get; set; } = null!;
 	}
 }
