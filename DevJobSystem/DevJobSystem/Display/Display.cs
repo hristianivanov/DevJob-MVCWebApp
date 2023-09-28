@@ -18,13 +18,13 @@
         {
 			this.writer = new ConsoleWriter();
 			this.reader = new ConsoleReader();
-            this.business = new DevJobSystemBusiness();
+			this.business = new DevJobSystemBusiness();
         }
 
         public Display(IWriter writer, IReader reader)
         {
 			this.reader = reader;
-	        this.writer = writer;
+			this.writer = writer;
         }
 
         //public async Task Run()
@@ -205,9 +205,6 @@
 
 		        DrawMenu();
 
-		        //writer.WriteLine(new string('-', 40));
-		        //writer.WriteLine(new string('-', 18) + "MENU" + new string('-', 18));
-		        //writer.WriteLine(new string('-', 40));
 		        //writer.WriteLine("1. List of all department");
 		        //writer.WriteLine("2. List of all employees by given department");
 		        //writer.WriteLine("3. List of all employees by given salary");

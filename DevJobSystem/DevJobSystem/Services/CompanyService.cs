@@ -1,12 +1,32 @@
 ﻿namespace DevJobSystem.Services
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
+	using Microsoft.EntityFrameworkCore;
 
-	internal class CompanyService
+	using Data;
+	using Interfaces;
+	using View_Models.Company;
+
+	public class CompanyService : ICompanyService
 	{
+		private readonly DevJobSystemDbContext dbContext;
+
+		public CompanyService(DevJobSystemDbContext dbContext)
+		{
+			this.dbContext = dbContext;
+		}
+
+
+		public async Task<IEnumerable<AllCompanyViewModel>> AllAsync()
+		{
+			var companies = await this.dbContext
+				.Companies
+				.Select(c => new AllCompanyViewModel
+				{
+					Name = c.Name,
+				})
+				.ToArrayAsync();
+
+			return companies;
+		}
 	}
 }

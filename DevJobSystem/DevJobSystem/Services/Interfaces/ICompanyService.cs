@@ -1,12 +1,9 @@
 ﻿namespace DevJobSystem.Services.Interfaces
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
-
-	internal interface ICompanyService
+	public interface ICompanyService
 	{
+		Task<IEnumerable<AllCompanyViewModel>> AllAsync();
+
+
 	}
 }
