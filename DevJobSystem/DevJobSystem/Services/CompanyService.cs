@@ -15,7 +15,6 @@
 			this.dbContext = dbContext;
 		}
 
-
 		public async Task<IEnumerable<AllCompanyViewModel>> AllAsync()
 		{
 			var companies = await this.dbContext
@@ -27,6 +26,16 @@
 				.ToArrayAsync();
 
 			return companies;
+		}
+
+		public async Task<bool> ExistByIdAsync(string id)
+		{
+			bool result = await this.dbContext
+				.Companies
+				//.Where(c => c.IsActive)
+				.AnyAsync(c => c.Id.ToString() == id);
+
+			return result;
 		}
 	}
 }
