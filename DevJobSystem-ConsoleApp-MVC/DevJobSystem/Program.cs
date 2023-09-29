@@ -10,7 +10,7 @@
 			IReader reader = new ConsoleReader();
 			IWriter writer = new ConsoleWriter();
 
-			Display display = new Display(writer,reader);
+			Display display = new Display(writer, reader);
 			await display.Run();
 		}
 	}
