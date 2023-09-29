@@ -28,6 +28,13 @@
 			"Hired Programmers",
 			"Back to Main Menu"
 		};
+		private string[] subMenuOptionsAddingItem = new string[]
+		{
+			"Option 1",
+			"Option 2",
+			"Option 3",
+			"Back to Main Menu",
+		};
 
 		public Display()
 		{
@@ -167,10 +174,61 @@
 					writer.WriteLine(ex.Message);
 				}
 			}
-
 		}
 
 		#endregion
+
+		private async Task ShowMenu()
+		{
+			Console.OutputEncoding = System.Text.Encoding.UTF8;
+			Console.CursorVisible = false;
+
+			DrawMainMenu();
+
+			while (true)
+			{
+				var key = Console.ReadKey(true).Key;
+
+				switch (key)
+				{
+					case ConsoleKey.UpArrow:
+						selectedOption = Math.Max(0, selectedOption - 1);
+						break;
+
+					case ConsoleKey.DownArrow:
+						selectedOption = Math.Min(mainMenuOptions.Length - 1, selectedOption + 1);
+						break;
+
+					case ConsoleKey.Enter:
+						if (selectedOption == mainMenuOptions.Length - 1)
+						{
+							Console.Clear();
+							writer.WriteLine("Goodbye!");
+							return;
+						}
+						else if (selectedOption == 0) //"List of all"
+						{
+							await ShowSubMenuListOfAll();
+							Console.Clear();
+							DrawMainMenu();
+						}
+						else if (selectedOption == 1)
+						{
+							await ShowSubMenuAddingItem();
+							Console.Clear();
+							DrawMainMenu();
+						}
+						else
+						{
+							Console.Clear();
+						}
+
+						break;
+				}
+
+				DrawMainMenu();
+			}
+		}
 
 		private async Task ShowSubMenuListOfAll()
 		{
@@ -219,12 +277,10 @@
 				DrawSubMenuListOfAll();
 			}
 		}
-		private async Task ShowMenu()
-		{
-			Console.OutputEncoding = System.Text.Encoding.UTF8;
-			Console.CursorVisible = false;
 
-			DrawMainMenu();
+		private async Task ShowSubMenuAddingItem()
+		{
+			DrawSubMenuAddingItem();
 
 			while (true)
 			{
@@ -233,38 +289,72 @@
 				switch (key)
 				{
 					case ConsoleKey.UpArrow:
-						selectedOption = Math.Max(0, selectedOption - 1);
+						subMenuSelectedOption = Math.Max(0, subMenuSelectedOption - 1);
 						break;
 
 					case ConsoleKey.DownArrow:
-						selectedOption = Math.Min(mainMenuOptions.Length - 1, selectedOption + 1);
+						subMenuSelectedOption = Math.Min(subMenuOptionsListOfAll.Length - 1, subMenuSelectedOption + 1);
 						break;
 
 					case ConsoleKey.Enter:
-						if (selectedOption == mainMenuOptions.Length - 1)
+						if (subMenuSelectedOption == subMenuOptionsListOfAll.Length - 1)
 						{
 							Console.Clear();
-							writer.WriteLine("Goodbye!");
 							return;
-						}
-						else if (selectedOption == 0) //"List of all"
-						{
-							await ShowSubMenuListOfAll();
-							Console.Clear();
-							DrawMainMenu();
 						}
 						else
 						{
 							Console.Clear();
-							//Handle other main menu options here
+							// Handle sub-menu options here
+							// Example:
+							if (subMenuSelectedOption == 0)
+							{
+								writer.WriteLine("Company");
+								await Task.Delay(2000);
+							}
+							else if (subMenuSelectedOption == 1)
+							{
+								writer.WriteLine("Job");
+								await Task.Delay(2000);
+							}
 						}
 
 						break;
 				}
 
-				DrawMainMenu();
+				DrawSubMenuAddingItem();
 			}
 		}
+
+		private void DrawSubMenuAddingItem()
+		{
+			Console.Clear();
+			writer.WriteLine("Adding Item Sub-Menu:");
+			// Draw the options for the "Adding item" sub-menu
+			for (int i = 0; i < subMenuOptionsAddingItem.Length; i++)
+			{
+				if (i == subMenuSelectedOption)
+				{
+					Console.ForegroundColor = ConsoleColor.White;
+					Console.BackgroundColor = ConsoleColor.DarkYellow;
+					writer.Write("-> ");
+				}
+				else
+				{
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
+					Console.BackgroundColor = ConsoleColor.Black;
+					writer.Write("   ");
+				}
+
+				writer.WriteLine(subMenuOptionsAddingItem[i]);
+
+				Console.ResetColor();
+			}
+
+			Console.ResetColor();
+		}
+
+
 
 		private void DrawMainMenu()
 		{
@@ -292,7 +382,32 @@
 					writer.Write("   ");
 				}
 
+				// Different color for each menu option
+				switch (i)
+				{
+					case 0:
+						Console.ForegroundColor = ConsoleColor.Cyan; // "List of all"
+						break;
+					case 1:
+						Console.ForegroundColor = ConsoleColor.Magenta; // "Adding item"
+						break;
+					case 2:
+						Console.ForegroundColor = ConsoleColor.Yellow; // "Search item"
+						break;
+					case 3:
+						Console.ForegroundColor = ConsoleColor.Green; // "Delete item"
+						break;
+					case 4:
+						Console.ForegroundColor = ConsoleColor.Red; // "Other functionality"
+						break;
+					default:
+						break;
+				}
+
 				writer.WriteLine(mainMenuOptions[i]);
+
+				// Reset colors after writing the line
+				Console.ResetColor();
 			}
 
 			Console.ResetColor();
@@ -328,6 +443,5 @@
 
 			Console.ResetColor();
 		}
-
 	}
 }
