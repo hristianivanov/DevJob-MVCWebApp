@@ -225,7 +225,6 @@
 					writer.Write("   ");
 				}
 
-				// Different color for each menu option
 				switch (i)
 				{
 					case 0:
@@ -250,7 +249,6 @@
 
 				writer.WriteLine(mainMenuOptions[i]);
 
-				// Reset colors after writing the line
 				Console.ResetColor();
 			}
 
