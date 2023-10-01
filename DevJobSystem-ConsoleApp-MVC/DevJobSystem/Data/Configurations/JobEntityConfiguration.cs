@@ -21,6 +21,7 @@
 				Id = 1,
 				Description = "Full Stack Developer",
 				Requirements = "Experience with JavaScript, React, and Node.js",
+				Salary = 5000m,
 				PublishedDate = new DateTime(2022, 02, 15),
 				ExpireDate = new DateTime(2022, 03, 15),
 			});
@@ -30,6 +31,7 @@
 				Id = 2,
 				Description = "Software Engineer",
 				Requirements = "Proficiency in Python and Django",
+				Salary = 2500m,
 				PublishedDate = new DateTime(2022, 03, 10),
 				ExpireDate = new DateTime(2022, 04, 10),
 			});
@@ -39,6 +41,7 @@
 				Id = 3,
 				Description = "Data Analyst",
 				Requirements = "Strong analytical skills and knowledge of SQL",
+				Salary = 2560m,
 				PublishedDate = new DateTime(2022, 04, 05),
 				ExpireDate = new DateTime(2022, 05, 05),
 			});
@@ -48,6 +51,7 @@
 				Id = 4,
 				Description = "Frontend Developer",
 				Requirements = "Familiarity with HTML, CSS, and JavaScript frameworks",
+				Salary = 4000m,
 				PublishedDate = new DateTime(2022, 05, 01),
 				ExpireDate = new DateTime(2022, 06, 01),
 			});
@@ -57,6 +61,7 @@
 				Id = 5,
 				Description = "UI/UX Designer",
 				Requirements = "Creative design skills and proficiency in design tools",
+				Salary = 6400m,
 				PublishedDate = new DateTime(2022, 06, 10),
 				ExpireDate = new DateTime(2022, 07, 10),
 			});

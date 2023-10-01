@@ -1,14 +1,18 @@
 ﻿namespace DevJobSystem.Display
 {
 	using Business;
+	using DevJobSystem.Data;
+	using DevJobSystem.Services;
+	using DevJobSystem.Services.Interfaces;
 	using IO;
 	using IO.Contracts;
 
 	public class Display
 	{
-		private readonly DevJobSystemBusiness business;
 		private readonly IWriter writer;
 		private readonly IReader reader;
+		private readonly ICompanyService companyService;
+		private readonly DevJobSystemDbContext dbContext;
 
 		private static int selectedOption = 0;
 		private static int subMenuSelectedOption = 0;
@@ -40,13 +44,8 @@
 		{
 			this.writer = new ConsoleWriter();
 			this.reader = new ConsoleReader();
-			this.business = new DevJobSystemBusiness();
-		}
-
-		public Display(IWriter writer, IReader reader)
-		{
-			this.reader = reader;
-			this.writer = writer;
+			this.dbContext = new DevJobSystemDbContext();
+			this.companyService = new CompanyService(dbContext);
 		}
 
 		public async Task Run()
@@ -134,12 +133,23 @@
 						{
 							Console.Clear();
 							
+							//Dev companies
 							if (subMenuSelectedOption == 0)
 							{
-								writer.WriteLine("Companies");
+								var companies = await this.companyService.AllAsync();
+
+								writer.WriteLine(string.Join(", ", companies.Select(x => x.Name)));
+
 								await Task.Delay(2000);
 							}
+							//Available Jobs
 							else if (subMenuSelectedOption == 1)
+							{
+								writer.WriteLine("Jobs");
+								await Task.Delay(2000);
+							}
+							//Hired Programmers
+							else if (subMenuSelectedOption == 2)
 							{
 								writer.WriteLine("Jobs");
 								await Task.Delay(2000);

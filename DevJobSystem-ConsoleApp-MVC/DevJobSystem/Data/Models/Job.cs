@@ -20,6 +20,8 @@
         [MaxLength(int.MaxValue)]
         public string Requirements { get; set; } = null!;
 
+        public decimal Salary { get; set; }
+
         public DateTime PublishedDate { get; set; }
 
         public DateTime ExpireDate { get; set; }

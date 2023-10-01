@@ -2,5 +2,6 @@
 {
 	public interface IJobService
 	{
+		//Task<IEnumerable<JobAllViewModel>>
 	}
 }
