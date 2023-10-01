@@ -30,9 +30,9 @@
 		};
 		private string[] subMenuOptionsAddingItem = new string[]
 		{
-			"Option 1",
-			"Option 2",
-			"Option 3",
+			"Company",
+			"Job offer",
+			"Programmer",
 			"Back to Main Menu",
 		};
 
@@ -49,134 +49,10 @@
 			this.writer = writer;
 		}
 
-		#region exmp
-
 		public async Task Run()
 		{
-			while (true)
-			{
-				Console.Clear();
-
-				await ShowMenu();
-
-				var input = reader
-					.ReadLine()
-					.Split();
-
-				Console.Clear();
-
-				string output = string.Empty;
-				if (input[0] == "9")
-				{
-					Environment.Exit(0);
-				}
-
-				try
-				{
-					if (input[0] == "1")
-					{
-						//List<Department> departments = await _employeeBusiness.GetAllDepartments();
-
-						//if (departments.Count == 0)
-						throw new ArgumentException("Departments count is 0");
-
-						output = "Successfully got department list";
-					}
-					else if (input[0] == "2")
-					{
-						writer.Write($"Type department name : ");
-						string departmentName = reader.ReadLine();
-
-						//List<string> employees = await _employeeBusiness.GetEmployeesNameByDepartment(departmentName);
-
-						//if (employees.Count == 0)
-						output = "There are no employees in that department .";
-						//else
-						//output = string.Join(", ", employees);
-					}
-					else if (input[0] == "3")
-					{
-						writer.Write($"Type salary : ");
-						decimal salary = decimal.Parse(reader.ReadLine());
-
-						//List<Employee> employees = await _employeeBusiness.GetEmployeesBySalary(salary);
-
-						//if (!employees.Any())
-						output = "There are no employees with that salary .";
-						//else
-						//output = string.Join(", ", employees.Select(e => $"{e.FirstName} {e.LastName}"));
-					}
-					else if (input[0] == "4")
-					{
-						writer.Write($"Type project name : ");
-						string projectName = reader.ReadLine();
-
-						//List<string> employees = await _employeeBusiness.GetEmployeesNameByWorkingProject(projectName);
-
-						//if (!employees.Any())
-						output = $"There is not existing project with that name .";
-						//else
-						//output = string.Join(", ", employees);
-					}
-					else if (input[0] == "5")
-					{
-						writer.Write($"Type department name : ");
-						string departmentName = reader.ReadLine();
-
-						//decimal avgSalary = await _employeeBusiness.GetAverageSalaryByDepartment(departmentName);
-
-						//output = $"Average salary is {avgSalary} .";
-					}
-					else if (input[0] == "6")
-					{
-						writer.Write($"Type employee's info in order 'firstName lastName salary departmentName'");
-						string[] employeeArgs = reader.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-						string firstName = employeeArgs[1];
-						string lastName = employeeArgs[2];
-						decimal salary = decimal.Parse(employeeArgs[3]);
-						string departmentName = employeeArgs[4];
-
-						//await _employeeBusiness.AddEmployee(firstName, lastName, salary, departmentName);
-
-						output = $"Successfully added employee .";
-					}
-					else if (input[0] == "7")
-					{
-						writer.Write($"Type employee's id : ");
-						int empployeeId = int.Parse(reader.ReadLine());
-						writer.Write($"Type employee's new salary :");
-						decimal newSalary = decimal.Parse(reader.ReadLine());
-
-						//await _employeeBusiness.UpdateEmployeeSalary(empployeeId, newSalary);
-
-						output = $"Successfully updated employee salary .";
-					}
-					else if (input[0] == "8")
-					{
-						writer.Write($"Type project id : ");
-						int projectId = int.Parse(reader.ReadLine());
-
-						//await _employeeBusiness.FinishedProject(projectId);
-
-						output = $"Project was successfully deleted";
-					}
-					else
-					{
-						throw new InvalidOperationException();
-					}
-
-					writer.WriteLine(output);
-
-					Thread.Sleep(2000);
-				}
-				catch (Exception ex)
-				{
-					writer.WriteLine(ex.Message);
-				}
-			}
+			await ShowMenu();
 		}
-
-		#endregion
 
 		private async Task ShowMenu()
 		{
@@ -212,7 +88,7 @@
 							Console.Clear();
 							DrawMainMenu();
 						}
-						else if (selectedOption == 1)
+						else if (selectedOption == 1) //"Adding item"
 						{
 							await ShowSubMenuAddingItem();
 							Console.Clear();
@@ -257,8 +133,7 @@
 						else
 						{
 							Console.Clear();
-							// Handle sub-menu options here
-							// Example:
+							
 							if (subMenuSelectedOption == 0)
 							{
 								writer.WriteLine("Companies");
@@ -277,7 +152,6 @@
 				DrawSubMenuListOfAll();
 			}
 		}
-
 		private async Task ShowSubMenuAddingItem()
 		{
 			DrawSubMenuAddingItem();
@@ -305,8 +179,7 @@
 						else
 						{
 							Console.Clear();
-							// Handle sub-menu options here
-							// Example:
+
 							if (subMenuSelectedOption == 0)
 							{
 								writer.WriteLine("Company");
@@ -325,36 +198,6 @@
 				DrawSubMenuAddingItem();
 			}
 		}
-
-		private void DrawSubMenuAddingItem()
-		{
-			Console.Clear();
-			writer.WriteLine("Adding Item Sub-Menu:");
-			// Draw the options for the "Adding item" sub-menu
-			for (int i = 0; i < subMenuOptionsAddingItem.Length; i++)
-			{
-				if (i == subMenuSelectedOption)
-				{
-					Console.ForegroundColor = ConsoleColor.White;
-					Console.BackgroundColor = ConsoleColor.DarkYellow;
-					writer.Write("-> ");
-				}
-				else
-				{
-					Console.ForegroundColor = ConsoleColor.DarkYellow;
-					Console.BackgroundColor = ConsoleColor.Black;
-					writer.Write("   ");
-				}
-
-				writer.WriteLine(subMenuOptionsAddingItem[i]);
-
-				Console.ResetColor();
-			}
-
-			Console.ResetColor();
-		}
-
-
 
 		private void DrawMainMenu()
 		{
@@ -386,21 +229,22 @@
 				switch (i)
 				{
 					case 0:
-						Console.ForegroundColor = ConsoleColor.Cyan; // "List of all"
+						Console.ForegroundColor = ConsoleColor.Yellow; // "List of all"
 						break;
 					case 1:
-						Console.ForegroundColor = ConsoleColor.Magenta; // "Adding item"
+						Console.ForegroundColor = ConsoleColor.Yellow; // "Adding item"
 						break;
 					case 2:
-						Console.ForegroundColor = ConsoleColor.Yellow; // "Search item"
+						Console.ForegroundColor = ConsoleColor.Yellow;
 						break;
 					case 3:
-						Console.ForegroundColor = ConsoleColor.Green; // "Delete item"
+						Console.ForegroundColor = ConsoleColor.Yellow;
 						break;
 					case 4:
-						Console.ForegroundColor = ConsoleColor.Red; // "Other functionality"
+						Console.ForegroundColor = ConsoleColor.Yellow;
 						break;
 					default:
+						Console.ForegroundColor = ConsoleColor.Red; // "Other functionality"
 						break;
 				}
 
@@ -437,6 +281,33 @@
 				}
 
 				writer.WriteLine(subMenuOptionsListOfAll[i]);
+
+				Console.ResetColor();
+			}
+
+			Console.ResetColor();
+		}
+		private void DrawSubMenuAddingItem()
+		{
+			Console.Clear();
+			writer.WriteLine("Adding Item Sub-Menu:");
+
+			for (int i = 0; i < subMenuOptionsAddingItem.Length; i++)
+			{
+				if (i == subMenuSelectedOption)
+				{
+					Console.ForegroundColor = ConsoleColor.White;
+					Console.BackgroundColor = ConsoleColor.DarkYellow;
+					writer.Write("-> ");
+				}
+				else
+				{
+					Console.ForegroundColor = ConsoleColor.DarkYellow;
+					Console.BackgroundColor = ConsoleColor.Black;
+					writer.Write("   ");
+				}
+
+				writer.WriteLine(subMenuOptionsAddingItem[i]);
 
 				Console.ResetColor();
 			}
