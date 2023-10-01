@@ -1,10 +1,10 @@
-﻿namespace DevJobSystem.Display
+﻿namespace DevJobSystem
 {
 	internal class Program
 	{
 		static async Task Main(string[] args)
 		{
-			Display display = new Display();
+			Display.Display display = new Display.Display();
 			await display.Run();
 		}
 	}
